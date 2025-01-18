@@ -8,7 +8,7 @@ pysicsClient = p.connect(p.GUI)
 for i in range (1000):
     p.stepSimulation()
     #call times sleep function to slow down the simulation
-    t.sleep(1. / 240)
+    t.sleep(1. / 100)
     print (i) #tell us how long each iteration takes
 
 p.disconnect()
