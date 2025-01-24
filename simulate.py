@@ -4,6 +4,9 @@ import time as t
 #import physics engine and
 pysicsClient = p.connect(p.GUI)
 
+#allow box to show in simulation
+p.loadSDF("box.sdf")
+
 #steps inside the physics world
 for i in range (1000):
     p.stepSimulation()
