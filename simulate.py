@@ -4,6 +4,9 @@ import time as t
 #import physics engine and
 pysicsClient = p.connect(p.GUI)
 
+#add forces into world
+p.setGravity(0,0,-9.8)
+
 #allow box to show in simulation
 p.loadSDF("box.sdf")
 
