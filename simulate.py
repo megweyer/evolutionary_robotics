@@ -13,7 +13,7 @@ p.setGravity(0,0,-9.8)
 planeId = p.loadURDF("plane.urdf")
 
 #allow box to show in simulation
-p.loadSDF("box.sdf")
+p.loadSDF("boxes.sdf")
 
 #steps inside the physics world
 for i in range (1000):
