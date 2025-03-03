@@ -1,4 +1,4 @@
-from generate import Create_world as CW
+from generate import Create_World as CW
 import pybullet as p
 
 class WORLD:
