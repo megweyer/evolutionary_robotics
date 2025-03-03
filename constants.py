@@ -4,7 +4,7 @@ import numpy
 #simulation parameters
 num_iterations = 1000
 max_force = 500
-sleep = 1/240
+sleep = 1/100
 
 #gravity constants
 xGrav = 0
