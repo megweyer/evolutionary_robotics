@@ -1,4 +1,5 @@
-from generate import Create_robot as CR
+from generate import Generate_Body as GB
+from pyrosim.neuralNetwork import NEURAL_NETWORK
 import pybullet as p
 import pyrosim.pyrosim as pyrosim
 from motor import MOTOR
@@ -7,17 +8,18 @@ from sensor import SENSOR
 class ROBOT:
     def __init__(self):
         #import robot
-        CR()
-
+        GB()
         # Add robot
         self.robotId = p.loadURDF("body.urdf")
-
         #prepare simulation
         pyrosim.Prepare_To_Simulate(self.robotId)
 
         #call function/method
         self.Prepare_To_Sense()
         self.Prepare_to_Act()
+
+        self.nn = NEURAL_NETWORK("brain.nndf")
+
 
     def Prepare_To_Sense(self):
         #create a dictionary to store sensor instances
@@ -41,9 +43,16 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act (self, t):
-        for motor in self.motors.values():
-            motor.Set_Value(self, t)
+        for neuronName in self.nn.Get_Neuron_Names(): #iterates over all the neurons in the neural network
+            if self.nn.Is_Motor_Neuron(neuronName):
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
+                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                self.motors[jointName].Set_Value(self, desiredAngle)
 
     def Save_Values (self):
         #Save the motor command vectors for analysis
         pass
+
+    def Think (self):
+        self.nn.Update()
+        self.nn.Print()
