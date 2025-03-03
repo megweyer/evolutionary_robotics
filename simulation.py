@@ -20,17 +20,15 @@ class SIMULATION:
     def Run(self):
         for t in range(c.num_iterations):
             p.stepSimulation()
-
             #call robot method sense
             self.robot.Sense(t)
-
+            # allow the robot to think
+            self.robot.Think()
             #call the motors
             self.robot.Act(t)
-
             #slow down the simulation
             time.sleep(c.sleep)
 
     def __del__(self):
         #disconnect from simulation
         p.disconnect()
-
