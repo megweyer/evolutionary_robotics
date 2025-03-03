@@ -1,0 +1,7 @@
+<robot name = "robot">
+    <neuron name = "0" type = "sensor" linkName = "torso" />
+    <neuron name = "1" type = "sensor" linkName = "back" />
+    <neuron name = "2" type = "sensor" linkName = "front" />
+    <neuron name = "3" type = "motor"  jointName = "torso_back" />
+    <neuron name = "4" type = "motor"  jointName = "torso_front" />
+</robot>
