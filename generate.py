@@ -24,6 +24,9 @@ def Generate_Brain ():
     pyrosim.Send_Sensor_Neuron(name=2, linkName="front")
     pyrosim.Send_Motor_Neuron(name=3, jointName="torso_back")
     pyrosim.Send_Motor_Neuron(name=4, jointName="torso_front")
+    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=3, weight=1.0) # generate a synapse - connects neuron 1 to neuron 3 #no ids because there is nothing that will be referring to them
+    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=4, weight=10.0) # generate a synapse - connects neuron 2 to neuron 3
+    pyrosim.Send_Synapse(sourceNeuronName=3, targetNeuronName=4, weight=1.0)
     pyrosim.End() #ends simulation
 
 Generate_Body()
