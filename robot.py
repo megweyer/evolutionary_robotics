@@ -20,7 +20,6 @@ class ROBOT:
 
         self.nn = NEURAL_NETWORK("brain.nndf")
 
-
     def Prepare_To_Sense(self):
         #create a dictionary to store sensor instances
         self.sensors = {}
