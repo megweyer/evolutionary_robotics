@@ -7,9 +7,13 @@ from world import WORLD
 from robot import ROBOT
 
 class SIMULATION:
-    def __init__(self):
+    def __init__(self, directOrGUI):
         #connect to the physics engine and set up the simulation environment
-        self.physicsClient = p.connect(p.GUI)
+        if directOrGUI == "GUI":
+            self.physicsClient = p.connect(p.GUI) #heads up mode
+        else:
+            self.physicsClient = p.connect(p.DIRECT) #blind mode
+
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(c.xGrav, c.yGrav, c.zGrav)
 
@@ -29,6 +33,9 @@ class SIMULATION:
             #slow down the simulation
             time.sleep(c.sleep)
 
-    def __del__(self):
+    def Get_Fitness (self):
+        self.robot.Get_Fitness()
+
+    #def __del__(self):
         #disconnect from simulation
-        p.disconnect()
+        #p.disconnect()
