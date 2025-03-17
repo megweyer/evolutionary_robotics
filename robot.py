@@ -4,9 +4,11 @@ import pybullet as p
 import pyrosim.pyrosim as pyrosim
 from motor import MOTOR
 from sensor import SENSOR
+import os
+import time
 
 class ROBOT:
-    def __init__(self):
+    def __init__(self, solutionID):
         #import robot
         GB()
         # Add robot
@@ -18,7 +20,12 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_to_Act()
 
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        brainFileName ="brain{solutionID}.nndf"
+        self.nn = NEURAL_NETWORK(f"brain{solutionID}.nndf") #use specific ID
+        #if os.path.exists(brainFileName):
+            #os.system(f"del /F {brainFileName}")
+
+        self.solutionID = solutionID
 
     def Prepare_To_Sense(self):
         #create a dictionary to store sensor instances
@@ -56,10 +63,15 @@ class ROBOT:
         self.nn.Update()
         #self.nn.Print() #prints all of the neural network values
 
-    def Get_Fitness (self):
+    def Get_Fitness (self, fitnessFileName):
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0] #the first x,y,z of the state of link zero
         xCoordinateOfLinkZero = positionOfLinkZero[0] #only the x coordinate
 
-        with open("fitness.txt", "w") as f:  # "w" mode overwrites the file, we want to write the fitness to a txt file
+        tmpFileName = f"tmp{self.solutionID}.txt"
+
+        with open(tmpFileName, "w") as f:  # "w" mode overwrites the file, we want to write the fitness to a txt file
             f.write(str(xCoordinateOfLinkZero))  # Write as string
+        time.sleep(0.1)
+
+        os.system(f"rename {tmpFileName} {fitnessFileName}")

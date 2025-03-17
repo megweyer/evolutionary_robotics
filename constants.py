@@ -4,7 +4,8 @@ import numpy
 #simulation parameters
 num_iterations = 1000
 max_force = 500
-sleep = 1/100
+sleep = 1/100000
+slowsleep = 1/240 #to slow down for GUI
 
 #gravity constants
 xGrav = 0
@@ -16,5 +17,10 @@ amplitude = numpy.pi / 4
 frequency = (2* numpy.pi)/num_iterations
 offset = numpy.pi
 
+#hill climber variables
+numberOfGenerations = 10
+
+#parallel hill climber variables
+populationSize = 2
 
 
