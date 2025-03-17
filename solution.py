@@ -65,7 +65,7 @@ class SOLUTION:
         self.fitness = float(fitnessValue)  # convert to float
         print(self.fitness)
 
-        #os.system(f"del /F {fitnessFileName}")  #delete in cmd
+        os.system(f"del fitness{self.myID}.txt")  #delete in cmd
 
     def Mutate(self):
         randomRow = random.randint(0,2) #random row index (0,1, or 2)
