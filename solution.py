@@ -2,11 +2,13 @@ import random
 import numpy as np
 import pyrosim.pyrosim as pyrosim
 import os
+import time
 
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, nextAvailableID):
         self.weights = 2 * np.random.rand(3, 2) - 1 #this generates 3x2 matrix with random values between -1 and 1
         self.fitness = None #initialize the fitness attribute
+        self.myID = nextAvailableID #assigns each ID to a new variable called my ID
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")  # stores info about the world
@@ -26,9 +28,9 @@ class SOLUTION:
 
     # create generate brain function using a neural network
     def Generate_Brain (self):
-        pyrosim.Start_URDF("brain.nndf")  # generate nndf (neural network) file of the robot brain
-        pyrosim.Send_Sensor_Neuron(name=0,
-                                   linkName="torso")  # this line assigns a numeric value with each neuron - this one is for torso
+        brainFileName = f"brain{self.myID}.nndf"
+        pyrosim.Start_URDF(brainFileName)  # generate nndf (neural network) file of the robot brain
+        pyrosim.Send_Sensor_Neuron(name=0,linkName="torso")  # this line assigns a numeric value with each neuron - this one is for torso
         pyrosim.Send_Sensor_Neuron(name=1, linkName="back")
         pyrosim.Send_Sensor_Neuron(name=2, linkName="front")
         pyrosim.Send_Motor_Neuron(name=3, jointName="torso_back")
@@ -44,18 +46,26 @@ class SOLUTION:
                 weight = self.weights[currentRow][currentColumn]
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=weight)
 
-    def Evaluate(self, directOrGUI):
+    def Start_Simulation(self, directOrGUI):
         # this method is going to generate the robots world, body, neural network, and send the six random weights
         self.Create_World()
         self.Generate_Body()
         self.Generate_Brain()
-        os.system (f"python simulate.py {directOrGUI}")
+        os.system(f"start /B python simulate.py {directOrGUI} {self.myID}")
 
-        with open("fitness.txt", "r") as fitnessFile:  #open file
-            fitnessValue = fitnessFile.read()  #read the fitness value as a string
+    def Wait_For_Simulation_To_End (self):
 
-        self.fitness = float(fitnessValue)  #convert to float
-        #print (self.fitness)
+        fitnessFileName = f"fitness{self.myID}.txt"  # gives the name of file a variable
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01)  # if the file can't be found it sleeps for a very short period of time
+
+        with open(fitnessFileName, "r") as fitnessFile:  # open file
+            fitnessValue = fitnessFile.read()  # read the fitness value as a string
+
+        self.fitness = float(fitnessValue)  # convert to float
+        print(self.fitness)
+
+        #os.system(f"del /F {fitnessFileName}")  #delete in cmd
 
     def Mutate(self):
         randomRow = random.randint(0,2) #random row index (0,1, or 2)
@@ -63,3 +73,6 @@ class SOLUTION:
 
         old_value = self.weights[randomRow, randomColumn]  #store the old weight
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1  #assign new random value
+
+    def Set_ID(self, nextAvailableID):
+        self.myID = nextAvailableID  # assigns a new unique ID to the solution
