@@ -23,7 +23,8 @@ class ROBOT:
         brainFileName ="brain{solutionID}.nndf"
         self.nn = NEURAL_NETWORK(f"brain{solutionID}.nndf") #use specific ID
         #if os.path.exists(brainFileName):
-            #os.system(f"del /F {brainFileName}")
+            #os.system(f"del {brainFileName}")
+        os.system(f"del brain{solutionID}.nndf")
 
         self.solutionID = solutionID
 
