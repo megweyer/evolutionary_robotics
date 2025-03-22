@@ -50,7 +50,7 @@ class SOLUTION:
         self.Create_World()
         self.Generate_Body()
         self.Generate_Brain()
-        os.system (f"start /B python simulate.py {directOrGUI}"+"&")
+        os.system (f"start /B python simulate.py {directOrGUI} {self.myID}")
 
         with open("fitness.txt", "r") as fitnessFile:  #open file
             fitnessValue = fitnessFile.read()  #read the fitness value as a string

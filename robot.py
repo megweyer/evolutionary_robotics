@@ -4,6 +4,7 @@ import pybullet as p
 import pyrosim.pyrosim as pyrosim
 from motor import MOTOR
 from sensor import SENSOR
+import os
 
 class ROBOT:
     def __init__(self, solutionID):
@@ -19,6 +20,7 @@ class ROBOT:
         self.Prepare_to_Act()
 
         self.nn = NEURAL_NETWORK(f"brain{solutionID}.nndf")
+        os.system(f"del brain{solutionID}.nndf") #delete the file so it doesn't fill up directory
 
     def Prepare_To_Sense(self):
         #create a dictionary to store sensor instances
