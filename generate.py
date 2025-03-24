@@ -16,8 +16,11 @@ def Generate_Body ():
                        position=[0, 0.5, 1], jointAxis = "1 0 0")  # create join
     pyrosim.Send_Cube(name="front", pos=[0, 0.5, 0], size=[0.2,1,0.2])  # front leg
     pyrosim.Send_Joint(name="torso_left", parent="torso", child="left", type="revolute",
-                       position=[-0.5, 0, 1], jointAxis="1 0 0")  # create join
+                       position=[-0.5, 0, 1], jointAxis="0 1 0")  # create join
     pyrosim.Send_Cube(name="left", pos=[-0.5, 0, 0], size=[1, 0.2, 0.2])  # back leg
+    pyrosim.Send_Joint(name="torso_right", parent="torso", child="right", type="revolute",
+                       position=[0.5, 0, 1], jointAxis="0 1 0")  # create join
+    pyrosim.Send_Cube(name="right", pos=[0.5, 0, 0], size=[1, 0.2, 0.2])  # back leg
 
     pyrosim.End() #ends simulation
 
@@ -28,13 +31,15 @@ def Generate_Brain ():
     pyrosim.Send_Sensor_Neuron(name=1, linkName="back")
     pyrosim.Send_Sensor_Neuron(name=2, linkName="front")
     pyrosim.Send_Sensor_Neuron(name=3, linkName="left")
-    pyrosim.Send_Motor_Neuron(name=4, jointName="torso_back")
-    pyrosim.Send_Motor_Neuron(name=5, jointName="torso_front")
-    pyrosim.Send_Motor_Neuron(name=6, jointName="torso_left")
+    pyrosim.Send_Sensor_Neuron(name=4, linkName="right")
+    pyrosim.Send_Motor_Neuron(name=5, jointName="torso_back")
+    pyrosim.Send_Motor_Neuron(name=6, jointName="torso_front")
+    pyrosim.Send_Motor_Neuron(name=7, jointName="torso_left")
+    pyrosim.Send_Motor_Neuron(name=8, jointName="torso_right")
 
     #assign variables
-    sensor_neurons = [0, 1, 2, 3]  #IDs of sensor neurons
-    motor_neurons = [4, 5, 6]  #IDs of motor neurons
+    sensor_neurons = [0, 1, 2, 3, 4]  #IDs of sensor neurons
+    motor_neurons = [5, 6, 7, 8]  #IDs of motor neurons
 
     # Generate synapses using nested loops
     for i in sensor_neurons:
