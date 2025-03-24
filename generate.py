@@ -10,8 +10,8 @@ def Generate_Body ():
     pyrosim.Start_URDF("body.urdf")  # generate urdf file of the robot body
     pyrosim.Send_Cube(name="torso", pos=[0, 0, 1], size=[1, 1, 1])  # create torso
     pyrosim.Send_Joint(name="torso_back", parent="torso", child="back", type="revolute",
-                       position=[1, 0, 1])  # create joint
-    pyrosim.Send_Cube(name="back", pos=[-0.5, 0, -0.5], size=[1, 1, 1])  # back leg
+                       position=[0, -0.5, 1])  # create joint
+    pyrosim.Send_Cube(name="back", pos=[0, -0.5, 0], size=[0.2, 1, 0.2])  # back leg
     pyrosim.Send_Joint(name="torso_front", parent="torso", child="front", type="revolute",
                        position=[0, 0.5, 1])  # create join
     pyrosim.Send_Cube(name="front", pos=[0, 0.5, 0], size=[0.2,1,0.2])  # front leg
