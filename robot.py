@@ -10,6 +10,7 @@ class ROBOT:
     def __init__(self, solutionID):
         #import robot
         GB()
+        self.solutionID = solutionID
         # Add robot
         self.robotId = p.loadURDF("body.urdf")
         #prepare simulation
@@ -20,7 +21,7 @@ class ROBOT:
         self.Prepare_to_Act()
 
         self.nn = NEURAL_NETWORK(f"brain{solutionID}.nndf")
-        os.system(f"del brain{solutionID}.nndf") #delete the file so it doesn't fill up directory
+        #os.system(f"del brain{solutionID}.nndf") #delete the file so it doesn't fill up directory
 
     def Prepare_To_Sense(self):
         #create a dictionary to store sensor instances
@@ -58,10 +59,14 @@ class ROBOT:
         self.nn.Update()
         #self.nn.Print() #prints all of the neural network values
 
-    def Get_Fitness (self, solutionID):
+    def Get_Fitness (self, fitnessFileName):
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0] #the first x,y,z of the state of link zero
         xCoordinateOfLinkZero = positionOfLinkZero[0] #only the x coordinate
 
-        with open(f"fitness{solutionID}.txt", "w") as f:  # "w" mode overwrites the file, we want to write the fitness to a txt file
+        tmp = f"tmp{self.solutionID}.txt"
+
+        with open(tmp, "w") as f:  # "w" mode overwrites the file, we want to write the fitness to a txt file
             f.write(str(xCoordinateOfLinkZero))  # Write as string
+
+        os.replace(tmp, fitnessFileName)

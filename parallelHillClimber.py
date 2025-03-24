@@ -1,15 +1,25 @@
 from solution import SOLUTION
 import constants as c
 import copy
+import os
+import glob
 
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
+
+        for file in glob.glob("brain*.nndf") + glob.glob("fitness*.txt"):
+            try:
+                os.remove(file)
+            except:
+                print ("can't delete")
+
         self.parents = {} #generates an empty dictionary
         self.nextAvailableID = 0 #assigns a unique ID to each fitness level
 
         for i in range(c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)  # store solution object in dictionary
             self.nextAvailableID += 1  # increment the ID for the next solution
+
 
     def Evolve(self):
         #for key in self.parents:

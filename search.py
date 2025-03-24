@@ -1,4 +1,5 @@
 import os
+import glob
 from hillclimber import HILL_CLIMBER
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
 

@@ -2,6 +2,8 @@ import random
 import numpy as np
 import pyrosim.pyrosim as pyrosim
 import os
+import time
+import subprocess
 
 class SOLUTION:
     def __init__(self, nextAvailableID):
@@ -51,12 +53,18 @@ class SOLUTION:
         self.Generate_Body()
         self.Generate_Brain()
         os.system (f"start /B python simulate.py {directOrGUI} {self.myID}")
+        #subprocess.run(["python", "simulate.py", directOrGUI, str(self.myID)])
 
-        with open(f"fitness{self.myID}.txt", "r") as fitnessFile:  #open file
+        fitnessFileName = f"fitness{self.myID}.txt"
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01) # if the file can't be found it sleeps for a very short period of time
+
+        with open(fitnessFileName, "r") as fitnessFile:  #open file
             fitnessValue = fitnessFile.read()  #read the fitness value as a string
 
         self.fitness = float(fitnessValue)  #convert to float
         print (self.fitness)
+
 
     def Mutate(self):
         randomRow = random.randint(0,2) #random row index (0,1, or 2)

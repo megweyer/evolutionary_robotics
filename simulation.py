@@ -6,6 +6,7 @@ import constants as c
 from constants import slowsleep
 from world import WORLD
 from robot import ROBOT
+import os
 
 class SIMULATION:
     def __init__(self, directOrGUI, solutionID):
@@ -44,7 +45,7 @@ class SIMULATION:
 
     def Get_Fitness (self):
         #self.robot.Get_Fitness(f"fitness{self.solutionID}.txt")
-        self.robot.Get_Fitness(self.solutionID)
+        self.robot.Get_Fitness(f"fitness{self.solutionID}.txt")
 
     #def __del__(self):
         #disconnect from simulation
