@@ -21,6 +21,10 @@ class SIMULATION:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(c.xGrav, c.yGrav, c.zGrav)
 
+        #initialize world and plane
+        #p.loadSDF("world.sdf")
+        #self.planeId = p.loadURDF("plane.urdf")
+
         #create instances
         self.world = WORLD()
         self.robot = ROBOT(solutionID)
@@ -43,7 +47,7 @@ class SIMULATION:
                 time.sleep(c.sleep)
 
     def Get_Fitness (self):
-        self.robot.Get_Fitness(f"fitness{self.solutionID}.txt")
+        self.robot.Get_Fitness()
 
     #def __del__(self):
         #disconnect from simulation

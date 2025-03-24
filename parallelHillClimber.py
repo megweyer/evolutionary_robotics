@@ -7,7 +7,6 @@ import time
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         #time.sleep(0.5)
-        os.system(f"del brain*.nndf")
         os.system(f"del fitness*.txt")
 
         self.parents = {} #generates an empty dictionary
@@ -19,6 +18,10 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self):
         self.Evaluate(self.parents)
+
+        #for currentGeneration in range(c.numberOfGenerations):
+            #self.Evolve_For_One_Generation()
+            #currentGeneration += 1
 
     def Evolve_For_One_Generation(self):
         self.Spawn()

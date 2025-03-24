@@ -1,12 +1,13 @@
 import random
 import numpy as np
+import constants as c
 import pyrosim.pyrosim as pyrosim
 import os
 import time
 
 class SOLUTION:
     def __init__(self, nextAvailableID):
-        self.weights = 2 * np.random.rand(3, 2) - 1 #this generates 3x2 matrix with random values between -1 and 1
+        self.weights = 2 * np.random.rand(c.numSensorNeuron, c.numMotorNeurons) - 1 #this generates 3x2 matrix with random values between -1 and 1
         self.fitness = None #initialize the fitness attribute
         self.myID = nextAvailableID #assigns each ID to a new variable called my ID
 
@@ -54,16 +55,26 @@ class SOLUTION:
         os.system(f"start /B python simulate.py {directOrGUI} {self.myID}")
 
     def Wait_For_Simulation_To_End (self):
-
         fitnessFileName = f"fitness{self.myID}.txt"  # gives the name of file a variable
         while not os.path.exists(fitnessFileName):
             time.sleep(0.01)  # if the file can't be found it sleeps for a very short period of time
 
-        with open(fitnessFileName, "r") as fitnessFile:  # open file
-            fitnessValue = fitnessFile.read()  # read the fitness value as a string
+        #with open(fitnessFileName, "r") as fitnessFile:  # open file
+         #   fitnessValue = fitnessFile.read()  # read the fitness value as a string
 
-        self.fitness = float(fitnessValue)  # convert to float
-        print(self.fitness)
+        #self.fitness = float(fitnessValue)  # convert to float
+        #print(self.fitness)
+
+        while True:
+            try:
+                with open(fitnessFileName, "r") as fitnessFile:
+                    fitnessString = fitnessFile.read().strip()
+                    self.fitness = float(fitnessString)
+                break
+            except PermissionError:
+                time.sleep(0.01)
+
+        fitnessFile.close()
 
         os.system(f"del fitness{self.myID}.txt")  #delete in cmd
 
@@ -72,7 +83,7 @@ class SOLUTION:
         randomColumn = random.randint(0,1) #random column index (0 or 1)
 
         old_value = self.weights[randomRow, randomColumn]  #store the old weight
-        self.weights[randomRow, randomColumn] = random.random() * 2 - 1  #assign new random value
+        self.weights[randomRow, randomColumn] = random.random() * c.numMotorNeurons - 1  #assign new random value
 
     def Set_ID(self, nextAvailableID):
         self.myID = nextAvailableID  # assigns a new unique ID to the solution

@@ -5,6 +5,5 @@ class WORLD:
     def __init__(self):
         #create the world
         CW()
-
         #add a floor
         self.planeId = p.loadURDF("plane.urdf")

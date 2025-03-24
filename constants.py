@@ -18,9 +18,13 @@ frequency = (2* numpy.pi)/num_iterations
 offset = numpy.pi
 
 #hill climber variables
-numberOfGenerations = 10
+numberOfGenerations = 1
 
 #parallel hill climber variables
-populationSize = 2
+populationSize = 1
+
+#quadruped variables
+numSensorNeuron = 3
+numMotorNeurons = 2
 
 
