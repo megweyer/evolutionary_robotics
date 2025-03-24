@@ -20,10 +20,10 @@ class SOLUTION:
         pyrosim.Start_URDF("body.urdf")  # generate urdf file of the robot body
         pyrosim.Send_Cube(name="torso", pos=[1.5, 0, 1.5], size=[1, 1, 1])  # create torso
         pyrosim.Send_Joint(name="torso_back", parent="torso", child="back", type="revolute",
-                           position=[1, 0, 1])  # create joint
+                           position=[1, 0, 1], jointAxis = "0 1 0")  # create joint
         pyrosim.Send_Cube(name="back", pos=[-0.5, 0, -0.5], size=[1, 1, 1])  # back leg
         pyrosim.Send_Joint(name="torso_front", parent="torso", child="front", type="revolute",
-                           position=[2, 0, 1])  # create join
+                           position=[2, 0, 1], jointAxis = "0 1 0")  # create join
         pyrosim.Send_Cube(name="front", pos=[0.5, 0, -0.5], size=[1, 1, 1])  # front leg
         pyrosim.End()  # ends simulation
 
