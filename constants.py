@@ -24,7 +24,7 @@ numberOfGenerations = 1
 populationSize = 1
 
 #quadruped variables
-numSensorNeuron = 5
-numMotorNeurons = 4
+numSensorNeuron = 9
+numMotorNeurons = 8
 
 
