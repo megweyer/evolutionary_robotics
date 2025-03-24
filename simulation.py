@@ -10,7 +10,7 @@ from robot import ROBOT
 class SIMULATION:
     def __init__(self, directOrGUI, solutionID):
         self.directOrGUI = directOrGUI
-        #self.solutionID = solutionID
+        self.solutionID = solutionID
 
         #connect to the physics engine and set up the simulation environment
         if directOrGUI == "GUI":
@@ -44,7 +44,7 @@ class SIMULATION:
 
     def Get_Fitness (self):
         #self.robot.Get_Fitness(f"fitness{self.solutionID}.txt")
-        self.robot.Get_Fitness()
+        self.robot.Get_Fitness(self.solutionID)
 
     #def __del__(self):
         #disconnect from simulation

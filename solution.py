@@ -52,11 +52,11 @@ class SOLUTION:
         self.Generate_Brain()
         os.system (f"start /B python simulate.py {directOrGUI} {self.myID}")
 
-        with open("fitness.txt", "r") as fitnessFile:  #open file
+        with open(f"fitness{self.myID}.txt", "r") as fitnessFile:  #open file
             fitnessValue = fitnessFile.read()  #read the fitness value as a string
 
         self.fitness = float(fitnessValue)  #convert to float
-        #print (self.fitness)
+        print (self.fitness)
 
     def Mutate(self):
         randomRow = random.randint(0,2) #random row index (0,1, or 2)

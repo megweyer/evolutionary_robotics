@@ -58,10 +58,10 @@ class ROBOT:
         self.nn.Update()
         #self.nn.Print() #prints all of the neural network values
 
-    def Get_Fitness (self):
+    def Get_Fitness (self, solutionID):
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0] #the first x,y,z of the state of link zero
         xCoordinateOfLinkZero = positionOfLinkZero[0] #only the x coordinate
 
-        with open("fitness.txt", "w") as f:  # "w" mode overwrites the file, we want to write the fitness to a txt file
+        with open(f"fitness{solutionID}.txt", "w") as f:  # "w" mode overwrites the file, we want to write the fitness to a txt file
             f.write(str(xCoordinateOfLinkZero))  # Write as string
