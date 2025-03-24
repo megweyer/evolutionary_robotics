@@ -8,6 +8,8 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         #time.sleep(0.5)
         os.system(f"del fitness*.txt")
+        os.system(f"del brain*.txt")
+        os.system(f"del body*.txt")
 
         self.parents = {} #generates an empty dictionary
         self.nextAvailableID = 0 #assigns a unique ID to each fitness level

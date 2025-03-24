@@ -36,11 +36,11 @@ def Generate_Body ():
     pyrosim.Send_Cube(name="backLower", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])  # back leg
     #lower left leg
     pyrosim.Send_Joint(name="left_leftLower", parent="left", child="leftLower", type="revolute",
-                       position=[-1, 0, 0], jointAxis="0 1 0")  # create join
+                       position=[-1, 0, 0], jointAxis="1 0 0")  # create join
     pyrosim.Send_Cube(name="leftLower", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])  # back leg
     # lower right leg
     pyrosim.Send_Joint(name="right_rightLower", parent="right", child="rightLower", type="revolute",
-                       position=[1, 0, 0], jointAxis="0 1 0")  # create join
+                       position=[1, 0, 0], jointAxis="1 0 0")  # create join
     pyrosim.Send_Cube(name="rightLower", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])  # back leg
 
     pyrosim.End() #ends simulation

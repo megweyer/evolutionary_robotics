@@ -29,6 +29,10 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT(solutionID)
 
+    #destructor
+    def __del__(self):
+        p.disconnect()
+
     def Run(self, directOrGUI):
         for t in range(c.num_iterations):
             p.stepSimulation()
