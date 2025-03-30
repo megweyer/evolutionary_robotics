@@ -8,6 +8,7 @@ import time
 class SOLUTION:
     def __init__(self, nextAvailableID):
         self.weights = 2 * np.random.rand(c.numSensorNeuron, c.numMotorNeurons) - 1 #this generates 3x2 matrix with random values between -1 and 1
+        self.leg_length = np.random.uniform(0.5, 2,size=4)  # generates random values between 0.5 and 2 for the length of the leg
         self.fitness = None #initialize the fitness attribute
         self.myID = nextAvailableID #assigns each ID to a new variable called my ID
 
