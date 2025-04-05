@@ -61,15 +61,15 @@ class ROBOT:
         #self.nn.Print() #prints all of the neural network values
 
     def Get_Fitness (self):
-        stateOfLinkZero = p.getLinkState(self.robotId, 0)
-        positionOfLinkZero = stateOfLinkZero[0] #the first x,y,z of the state of link zero
-        xCoordinateOfLinkZero = positionOfLinkZero[0] #only the x coordinate
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        basePosition = basePositionAndOrientation[0] #the first x,y,z of the state of link zero
+        xPosition = basePosition[0] #only the x coordinate
 
         tmpFileName = f"tmp{self.solutionID}.txt"
         fitnessFileName = f"fitness{self.solutionID}.txt"
 
         with open(tmpFileName, "w") as f:  # "w" mode overwrites the file, we want to write the fitness to a txt file
-            f.write(str(xCoordinateOfLinkZero)) # Write as string
+            f.write(str(xPosition)) # Write as string
             f.close()
         time.sleep(0.1)
 
