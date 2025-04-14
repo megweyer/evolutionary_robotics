@@ -20,6 +20,8 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self):
         self.Evaluate(self.parents)
+        self.Spawn() # unlocks children dictionary
+        self.Mutate() #mutates values and prints them from before and after generation
 
         #for currentGeneration in range(c.numberOfGenerations):
             #self.Evolve_For_One_Generation()
@@ -42,7 +44,14 @@ class PARALLEL_HILL_CLIMBER:
 
     def Mutate(self):
         for child in self.children.keys():
-            self.children[child].Mutate()
+            before = ', '.join(f"{l:.3f}" for l in self.children[child].leg_length) #value before mutation
+            print(f"Child {child} leg lengths BEFORE mutation: [{before}]")
+
+            self.children[child].Mutate() #mutate
+
+            after = ', '.join(f"{l:.3f}" for l in self.children[child].leg_length) #value after mutation
+            print(f"Child {child} leg lengths AFTER mutation:  [{after}]")
+
 
     def Select(self):
         if self.child.fitness < self.parent.fitness:
