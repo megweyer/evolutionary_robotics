@@ -18,7 +18,7 @@ frequency = (2* numpy.pi)/num_iterations
 offset = numpy.pi
 
 #hill climber variables
-numberOfGenerations = 10
+numberOfGenerations = 4
 
 #parallel hill climber variables
 populationSize = 10

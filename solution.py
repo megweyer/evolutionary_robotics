@@ -62,7 +62,7 @@ class SOLUTION:
 
         os.system(f"del fitness{self.myID}.txt")  #delete in cmd
 
-    def Mutate(self):
+    def Mutate(self, mutate_brain = False):
         #mutate random
         randomRow = random.randint(0,2) #random row index (0,1, or 2)
         randomColumn = random.randint(0,1) #random column index (0 or 1)
@@ -72,6 +72,14 @@ class SOLUTION:
         for i in range(len(self.leg_length)):
             self.leg_length[i] += random.uniform(-mutation_strength, mutation_strength)
             self.leg_length[i] = np.clip(self.leg_length[i], 0.5, 4.5)  # keep it within range
+
+        if mutate_brain:
+            #randomly mutate one synapse weight to mutate the brain and get it to evolve
+            row = random.randint(0, self.weights.shape[0] - 1)
+            col = random.randint(0, self.weights.shape[1] - 1)
+            old_weight = self.weights[row, col]
+            self.weights[row, col] = random.uniform(-1, 1)
+            print(f"Brain weight mutated at [{row}, {col}]: {old_weight:.2f} -> {self.weights[row, col]:.2f}") #ensures brain has been mutated
 
     def Set_ID(self, nextAvailableID):
         self.myID = nextAvailableID  # assigns a new unique ID to the solution
@@ -155,9 +163,10 @@ class SOLUTION:
 
         # assign variables
         sensor_neurons = [0, 1, 2, 3, 4, 5, 6, 7, 8]  # IDs of sensor neurons
-        motor_neurons = [9, 10, 11, 12, 13, 14, 15]  # IDs of motor neurons
+        motor_neurons = [9, 10, 11, 12, 13, 14, 15, 16]  # IDs of motor neurons
 
         # Generate synapses using nested loops
         for i in sensor_neurons:
             for j in motor_neurons:
-                pyrosim.Send_Synapse(sourceNeuronName=i, targetNeuronName=j, weight=random.uniform(-1, 1))
+                pyrosim.Send_Synapse(sourceNeuronName=i, targetNeuronName=j, weight=random.uniform(-5, 5))
+
