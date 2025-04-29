@@ -42,6 +42,11 @@ class PARALLEL_HILL_CLIMBER:
         numpy.savetxt(txt_filename, self.ab_test_matrix, fmt="%.5f")
         numpy.save(npy_filename, self.ab_test_matrix)
 
+        #save max fitness for plotting
+        max_fitness_per_gen = numpy.abs(numpy.min(self.ab_test_matrix, axis=0))
+        filename = f"run_fitness_curve_{self.variant}_{int(time.time())}.txt"
+        numpy.savetxt(filename, max_fitness_per_gen, fmt="%.5f")
+
     def Evolve_For_One_Generation(self, generation):
         self.Spawn()
         self.Mutate()
