@@ -15,6 +15,12 @@ class SIMULATION:
         #connect to the physics engine and set up the simulation environment
         if directOrGUI == "GUI":
             self.physicsClient = p.connect(p.GUI) #heads up mode
+            p.resetDebugVisualizerCamera(
+                cameraDistance=10,  # Increase this number to zoom out more
+                cameraYaw=0,
+                cameraPitch=-30,
+                cameraTargetPosition=[0, 0, 0]
+            )
         else:
             self.physicsClient = p.connect(p.DIRECT) #blind mode
 
