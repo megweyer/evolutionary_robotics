@@ -6,6 +6,7 @@ import constants as c
 from constants import slowsleep
 from world import WORLD
 from robot import ROBOT
+import os
 
 class SIMULATION:
     def __init__(self, directOrGUI, solutionID):
@@ -15,6 +16,13 @@ class SIMULATION:
         #connect to the physics engine and set up the simulation environment
         if directOrGUI == "GUI":
             self.physicsClient = p.connect(p.GUI) #heads up mode
+            # Zoom out camera view
+            p.resetDebugVisualizerCamera(
+                cameraDistance=10.0,  # zoom level (increase to zoom out)
+                cameraYaw=50,  # left-right angle
+                cameraPitch=-35,  # up-down angle
+                cameraTargetPosition=[0, 0, 1]  # what to center the camera on
+            )
         else:
             self.physicsClient = p.connect(p.DIRECT) #blind mode
 

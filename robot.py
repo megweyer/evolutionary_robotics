@@ -56,21 +56,32 @@ class ROBOT:
                 desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
                 self.motors[jointName].Set_Value(self, desiredAngle)
 
+
     def Think (self):
         self.nn.Update()
         #self.nn.Print() #prints all of the neural network values
 
     def Get_Fitness (self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
-        basePosition = basePositionAndOrientation[0] #the first x,y,z of the state of link zero
-        xPosition = basePosition[0] #only the x coordinate
+        basePosition, _ = p.getBasePositionAndOrientation(self.robotId)
+        x = basePosition[0]
+        y = basePosition[1]
+        z = basePosition[2]
+
+        # Forward motion: encourage even small progress
+        forward_reward = max(0, x) * 5.0
+
+        # Soft penalties
+        side_penalty = abs(y) * 1.0
+        upright_penalty = abs(1.0 - z) * 2.0
+
+        # New fitness: reward more, punish less
+        fitness = forward_reward - side_penalty - upright_penalty
 
         tmpFileName = f"tmp{self.solutionID}.txt"
         fitnessFileName = f"fitness{self.solutionID}.txt"
 
-        with open(tmpFileName, "w") as f:  # "w" mode overwrites the file, we want to write the fitness to a txt file
-            f.write(str(xPosition)) # Write as string
-            f.close()
+        with open(tmpFileName, "w") as f:
+            f.write(str(fitness))
         time.sleep(0.1)
 
         os.system(f"rename {tmpFileName} {fitnessFileName}")
