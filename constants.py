@@ -26,6 +26,6 @@ populationSize = 10
 #quadruped variables
 numSensorNeuron = 9
 numMotorNeurons = 8
-motorJointRange = 0.4
+motorJointRange = 0.6
 
 

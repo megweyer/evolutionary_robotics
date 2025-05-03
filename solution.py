@@ -167,6 +167,10 @@ class SOLUTION:
         motor_neurons = [9, 10, 11, 12, 13, 14, 15, 16]  # IDs of motor neurons
 
         # Generate synapses using nested loops
-        for i in sensor_neurons:
-            for j in motor_neurons:
-                pyrosim.Send_Synapse(sourceNeuronName=i, targetNeuronName=j, weight=random.uniform(-1, 1))
+        #for i in sensor_neurons:
+         #   for j in motor_neurons:
+          #      pyrosim.Send_Synapse(sourceNeuronName=i, targetNeuronName=j, weight=random.uniform(-1, 1))
+        for i in range(len(sensor_neurons)):
+            for j in range(len(motor_neurons)):
+                pyrosim.Send_Synapse(sourceNeuronName=sensor_neurons[i], targetNeuronName=motor_neurons[j],
+                                     weight=self.weights[i][j])

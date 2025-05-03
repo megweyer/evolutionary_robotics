@@ -21,15 +21,16 @@ def PLOT():
     mean_B = np.mean(matrix_B, axis=0)
     std_B = np.std(matrix_B, axis=0)
 
-    generations = np.arange(matrix_A.shape[1])
+    generations_A = np.arange(matrix_A.shape[1])
+    generations_B = np.arange(matrix_B.shape[1])
 
     # Plot Variant A rainbow
-    plt.plot(generations, mean_A, label="Variant A Mean", color="blue")
-    plt.fill_between(generations, mean_A - std_A, mean_A + std_A, color="blue", alpha=0.3)
+    plt.plot(generations_A, mean_A, label="Variant A Mean", color="blue")
+    plt.fill_between(generations_A, mean_A - std_A, mean_A + std_A, color="blue", alpha=0.3)
 
     # Plot Variant B rainbow
-    plt.plot(generations, mean_B, label="Variant B Mean", color="green")
-    plt.fill_between(generations, mean_B - std_B, mean_B + std_B, color="green", alpha=0.3)
+    plt.plot(generations_B, mean_B, label="Variant B Mean", color="green")
+    plt.fill_between(generations_B, mean_B - std_B, mean_B + std_B, color="green", alpha=0.3)
 
     # Labeling and legend
     plt.title("Average Fitness Over Generations (with Std Dev)")
